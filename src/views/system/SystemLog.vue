@@ -30,8 +30,19 @@
       <el-button type="primary" icon="el-icon-search" class="search-button">搜索</el-button>
     </div> -->
       <!-- 查找表格部分 -->
-      <el-table :data="tableData" tooltip-effect="dark" style="width: 100%" border stripe class="log-table">
+      <el-table :data="tableDataSearch" tooltip-effect="dark" style="width: 100%" border stripe class="log-table">
         <!-- :header-cell-style="setHeaderColor" -->
+        <el-table-column type="selection"> </el-table-column>
+        <el-table-column prop="logId" label="日志ID"></el-table-column>
+        <el-table-column prop="ip" label="操作IP"> </el-table-column>
+        <el-table-column prop="type" label="操作类型"> </el-table-column>
+        <el-table-column prop="content" label="操作内容"> </el-table-column>
+        <el-table-column prop="operatorId" label="操作员ID"> </el-table-column>
+        <el-table-column prop="operator" label="操作员"> </el-table-column>
+        <el-table-column prop="date" label="操作时间" sortable> </el-table-column>
+      </el-table>
+
+      <el-table :data="tableData" tooltip-effect="dark" style="width: 100%" border stripe class="log-table">
         <el-table-column type="selection"> </el-table-column>
         <el-table-column prop="logId" label="日志ID"></el-table-column>
         <el-table-column prop="ip" label="操作IP"> </el-table-column>
@@ -74,7 +85,7 @@ export default {
           type: '修改数据',
           content: '修改XXX数据',
           operatorId: 2,
-          operator: 'admin',
+          operator: 'clz',
           date: '2021-10-30'
         },
         {
@@ -83,7 +94,7 @@ export default {
           type: '修改数据',
           content: '修改XXX数据',
           operatorId: 3,
-          operator: 'admin',
+          operator: 'czh',
           date: '2019-8-1'
         },
         {
@@ -92,10 +103,11 @@ export default {
           type: '修改数据',
           content: '修改XXX数据',
           operatorId: 4,
-          operator: 'admin',
+          operator: 'test',
           date: '2020-10-1'
         }
       ],
+      tableDataSearch: [],
       multipleSelection: []
     };
   },
@@ -103,8 +115,14 @@ export default {
     setHeaderColor({ row, column, rowIndex, columnIndex }) {
       return 'background-color: #eef1f6';
     },
-    search() {},
-    changeButton() {
+    search() {
+      this.tableDataSearch = this.tableData.filter(o => {
+        let date = new Date(o.date.replace(/-/g, '/') + ' 00:00:00');
+        return date.getTime() >= this.startDayMS && date.getTime() <= this.endDayMS && o.operator === this.username;
+      });
+    },
+    setButton() {
+      // 根据输入条件设置按钮状态
       if (this.startDay && this.endDay && this.username) {
         this.startDayMS = new Date(this.startDay).getTime();
 
@@ -125,7 +143,7 @@ export default {
     }
   },
   updated() {
-    this.changeButton();
+    this.setButton();
   }
 };
 </script>
