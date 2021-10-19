@@ -165,14 +165,17 @@ export default {
     position: absolute;
   }
 }
+
 .el-submenu__title {
   position: relative;
+
   i {
     left: 30px;
     top: 22px;
     position: absolute;
   }
 }
+
 .el-submenu {
   .el-menu-item {
     i {
@@ -180,6 +183,7 @@ export default {
       margin-top: 17px;
       margin-right: 15px;
     }
+
     span {
       float: left;
     }
@@ -198,13 +202,16 @@ export default {
   font-size: 16px;
   display: flex;
   align-items: center;
+
   div {
     margin-right: 10px;
   }
+
   i {
     font-size: 22px;
   }
 }
+
   .information {
     color: #fff;
     display: flex;
@@ -223,6 +230,7 @@ export default {
   color: #333;
   text-align: center;
   line-height: 200px;
+
   .el-menu {
     border-right: none;
   }
