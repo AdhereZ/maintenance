@@ -1,7 +1,7 @@
 <template>
   <div class="loginPage">
     <div class="loginArea">
-      <div class="loginTitle">登录</div>
+      <div class="loginTitle">注册</div>
       <el-form>
         <el-form-item label="用户名">
           <el-input type="text"></el-input>
@@ -9,14 +9,12 @@
         <el-form-item label="密码">
           <el-input type="password"></el-input>
         </el-form-item>
-        <router-link
-          to="/findPassword"
-          style="font-size: 16px; color: #409eff; margin-left: 10px"
-          >忘记密码？</router-link
-        >
+        <el-form-item label="再次输入密码">
+          <el-input type="password"></el-input>
+        </el-form-item>
         <el-form-item class="btns">
-          <el-button type="primary" @click="submitForm">登录</el-button>
-          <el-button plain class="register" @click="toRegister">注册</el-button>
+          <el-button type="primary" @click="submitForm">注册</el-button>
+          <el-button plain class="register" @click="toRegister">返回登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -25,16 +23,16 @@
 
 <script>
 export default {
-  name: "Login",
+  name: "Register",
   data() {
     return {};
   },
   methods: {
     submitForm() {
-      this.$router.push("/home");
+      this.$router.push("/login");
     },
     toRegister() {
-      this.$router.push("/register");
+      this.$router.push("/login");
     },
   },
 };
@@ -69,7 +67,7 @@ export default {
     }
     .btns {
         position: absolute;
-        bottom: -100px;
+        bottom: -60px;
         left: 50%;
         transform: translateX(-50%);
         .el-button {

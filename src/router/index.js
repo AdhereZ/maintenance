@@ -6,6 +6,8 @@ Vue.use(VueRouter)
 const Home = () => import('views/home/Home')
 const Layout = () => import('views/layout/Layout')
 const Login = () => import('views/login/Login')
+const Register = () => import('views/register/Register')
+const FindPassword = () => import('views/findPassword/FindPassword')
 
 const UserList = () => import('views/users/UserList')
 const RemoveUser = () => import('views/users/RemoveUser')
@@ -27,6 +29,16 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register
+  },
+  {
+    path: '/findPassword',
+    name: 'FindPassword',
+    component: FindPassword
   },
   {
     path: '/layout',
