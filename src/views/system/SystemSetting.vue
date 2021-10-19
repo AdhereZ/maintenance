@@ -1,9 +1,9 @@
 <template>
-  <h1>system</h1>
+  <h1>system123</h1>
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style lang="less" scoped></style>
