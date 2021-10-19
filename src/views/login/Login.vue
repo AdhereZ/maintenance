@@ -20,6 +20,9 @@
         </el-form-item>
       </el-form>
     </div>
+    <div class="copyright">
+      Copyright © 2021 JuLongping Technology Co.Ltd.All righht
+    </div>
   </div>
 </template>
 
@@ -46,6 +49,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
+
   .loginArea {
     box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background-color: #fff;
@@ -85,6 +89,13 @@ export default {
           margin-left: 0;
         }
       }
+  }
+  .copyright {
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    transform: translateX(-50%);
+    font-size: 16px;
   }
 }
 </style>
