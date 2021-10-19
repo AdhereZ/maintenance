@@ -30,7 +30,7 @@
       <el-button type="primary" icon="el-icon-search" class="search-button">搜索</el-button>
     </div> -->
       <!-- 查找表格部分 -->
-      <el-table :data="tableDataSearch" tooltip-effect="dark" style="width: 100%" border stripe class="log-table">
+      <el-table :data="tableDataSearch" tooltip-effect="dark" style="width: 100%" border stripe class="log-table" :header-cell-style="setHeaderColor">
         <!-- :header-cell-style="setHeaderColor" -->
         <el-table-column type="selection"> </el-table-column>
         <el-table-column prop="logId" label="日志ID"></el-table-column>
@@ -42,7 +42,7 @@
         <el-table-column prop="date" label="操作时间" sortable> </el-table-column>
       </el-table>
 
-      <el-table :data="tableData" tooltip-effect="dark" style="width: 100%" border stripe class="log-table">
+      <el-table :data="tableData" tooltip-effect="dark" style="width: 100%" border stripe class="log-table" :header-cell-style="setHeaderColor">
         <el-table-column type="selection"> </el-table-column>
         <el-table-column prop="logId" label="日志ID"></el-table-column>
         <el-table-column prop="ip" label="操作IP"> </el-table-column>
@@ -113,7 +113,7 @@ export default {
   },
   methods: {
     setHeaderColor({ row, column, rowIndex, columnIndex }) {
-      return 'background-color: #eef1f6';
+      return 'background-color: #f2f2f2';
     },
     search() {
       this.tableDataSearch = this.tableData.filter(o => {
