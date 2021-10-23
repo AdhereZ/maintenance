@@ -20,6 +20,8 @@ const AdminList = () => import('views/admin/AdminList')
 const SystemSetting = () => import('views/system/SystemSetting')
 const SystemLog = () => import('views/system/SystemLog')
 
+const Feedback = () => import('views/feedback/Feedback')
+
 const routes = [
   {
     path:'/',
@@ -90,6 +92,11 @@ const routes = [
       path: '/systemLog',
       name: 'SystemLog',
       component: SystemLog,
+     },
+     {
+      path: '/feedback',
+      name: 'Feedback',
+      component: Feedback,
      },
 
     ]

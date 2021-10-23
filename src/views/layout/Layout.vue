@@ -141,6 +141,12 @@ export default {
             },
           ],
         },
+        {
+          name: '反馈中心',
+          id: 211,
+          icon: "el-icon-s-order",
+          path: "feedback"
+        }
       ],
     };
   },
