@@ -26,9 +26,10 @@ const VRSystem = () => import('views/moduleManage/VRSystem')
 const MRSystem = () => import('views/moduleManage/MRSystem')
 const QuestionManage = () => import('views/moduleManage/QuestionManage')
 
-const routes = [
-  {
-    path:'/',
+const Index = () => import('views/User/index/Index')
+
+const routes = [{
+    path: '/',
     redirect: '/login'
   },
   {
@@ -51,74 +52,78 @@ const routes = [
     name: 'Layout',
     component: Layout,
     redirect: '/home',
-    children: [
-     {
-      path: '/home',
-      name: 'Home',
-      component: Home,
-     },
-     {
-      path: '/userList',
-      name: 'UserList',
-      component: UserList,
-     },
-     {
-      path: '/removeUser',
-      name: 'RemoveUser',
-      component: RemoveUser,
-     },
-     {
-      path: '/loginLog',
-      name: 'LoginLog',
-      component: LoginLog,
-     },
-     {
-      path: '/roleManage',
-      name: 'RoleManage',
-      component: RoleManage,
-     },
-     {
-      path: '/authManage',
-      name: 'AuthManage',
-      component: AuthManage,
-     },
-     {
-      path: '/adminList',
-      name: 'AdminList',
-      component: AdminList,
-     },
-     {
-      path: '/systemSetting',
-      name: 'SystemSetting',
-      component: SystemSetting,
-     },
-     {
-      path: '/systemLog',
-      name: 'SystemLog',
-      component: SystemLog,
-     },
-     {
-      path: '/feedback',
-      name: 'Feedback',
-      component: Feedback,
-     },
-     {
-      path: '/vr',
-      name: 'VRSystem',
-      component: VRSystem,
-     },
-     {
-      path: '/mr',
-      name: 'MRSystem',
-      component: MRSystem,
-     },
-     {
-      path: '/questionManage',
-      name: 'QuestionManage',
-      component: QuestionManage,
-     },
+    children: [{
+        path: '/home',
+        name: 'Home',
+        component: Home,
+      },
+      {
+        path: '/userList',
+        name: 'UserList',
+        component: UserList,
+      },
+      {
+        path: '/removeUser',
+        name: 'RemoveUser',
+        component: RemoveUser,
+      },
+      {
+        path: '/loginLog',
+        name: 'LoginLog',
+        component: LoginLog,
+      },
+      {
+        path: '/roleManage',
+        name: 'RoleManage',
+        component: RoleManage,
+      },
+      {
+        path: '/authManage',
+        name: 'AuthManage',
+        component: AuthManage,
+      },
+      {
+        path: '/adminList',
+        name: 'AdminList',
+        component: AdminList,
+      },
+      {
+        path: '/systemSetting',
+        name: 'SystemSetting',
+        component: SystemSetting,
+      },
+      {
+        path: '/systemLog',
+        name: 'SystemLog',
+        component: SystemLog,
+      },
+      {
+        path: '/feedback',
+        name: 'Feedback',
+        component: Feedback,
+      },
+      {
+        path: '/vr',
+        name: 'VRSystem',
+        component: VRSystem,
+      },
+      {
+        path: '/mr',
+        name: 'MRSystem',
+        component: MRSystem,
+      },
+      {
+        path: '/questionManage',
+        name: 'QuestionManage',
+        component: QuestionManage,
+      },
     ]
   },
+  {
+    path: '/index',
+    name: 'Index',
+    component: Index
+  }
 ]
 
 const router = new VueRouter({
