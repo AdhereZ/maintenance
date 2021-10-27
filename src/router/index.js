@@ -22,6 +22,10 @@ const SystemLog = () => import('views/system/SystemLog')
 
 const Feedback = () => import('views/feedback/Feedback')
 
+const VRSystem = () => import('views/moduleManage/VRSystem')
+const MRSystem = () => import('views/moduleManage/MRSystem')
+const QuestionManage = () => import('views/moduleManage/QuestionManage')
+
 const routes = [
   {
     path:'/',
@@ -98,7 +102,21 @@ const routes = [
       name: 'Feedback',
       component: Feedback,
      },
-
+     {
+      path: '/vr',
+      name: 'VRSystem',
+      component: VRSystem,
+     },
+     {
+      path: '/mr',
+      name: 'MRSystem',
+      component: MRSystem,
+     },
+     {
+      path: '/questionManage',
+      name: 'QuestionManage',
+      component: QuestionManage,
+     },
     ]
   },
 ]

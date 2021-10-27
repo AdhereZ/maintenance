@@ -23,6 +23,7 @@
           :collapse-transition="false"
           :default-active="activePath"
           :router="true"
+          @select="savePath"
         >
           <template v-for="item in menuList">
             <el-menu-item
@@ -69,7 +70,7 @@ export default {
   data() {
     return {
       isCollapse: false,
-      activePath: "home",
+      activePath: "",
       menuList: [
         { name: "主页", id: 99, icon: "el-icon-s-home", path: "home" },
         {
@@ -123,6 +124,32 @@ export default {
           ],
         },
         {
+          name: "模块管理", 
+          id: 165,
+          icon: "el-icon-finished",
+          path: "moduleManage",
+          children: [
+            {
+              name: "VR教学系统",
+              id: 166,
+              icon: "el-icon-menu",
+              path: 'vr'
+            },
+            {
+              name: "MR辅助维保系统",
+              id: 187,
+              icon: "el-icon-menu",
+              path: 'mr'
+            },
+            {
+              name: "题库管理",
+              id: 566,
+              icon: "el-icon-menu",
+              path: 'questionManage'
+            },
+          ]
+        },
+        {
           name: "系统管理",
           id: 300,
           icon: "el-icon-setting",
@@ -142,7 +169,7 @@ export default {
           ],
         },
         {
-          name: '反馈中心',
+          name: "反馈中心",
           id: 211,
           icon: "el-icon-s-order",
           path: "feedback"
@@ -150,10 +177,17 @@ export default {
       ],
     };
   },
+  created() {
+    this.activePath = window.sessionStorage.getItem('activePath') || "home"
+  },
   methods: {
     menuCollapse() {
       this.isCollapse = !this.isCollapse;
     },
+    savePath(index) {
+      window.sessionStorage.setItem('activePath',index)
+      this.activePath = index
+    }
   },
 };
 </script>
@@ -184,6 +218,7 @@ export default {
 
 .el-submenu {
   .el-menu-item {
+    padding-right: 10px;
     i {
       float: left;
       margin-top: 17px;
