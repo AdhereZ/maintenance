@@ -23,7 +23,7 @@ export default {
   min-height: 200px;
   padding: 22px;
   background: white;
-  margin-top: 12px;
+  margin-top: 24px;
   display: flex;
   flex-direction: column;
 }
@@ -32,7 +32,7 @@ export default {
   border-top: 1px solid #e3e3e3;
   position: relative;
   flex: 1;
-  padding-top: 30px;
+  padding-top: 40px;
 }
 .title {
   position: absolute;

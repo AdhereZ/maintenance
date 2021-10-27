@@ -1,4 +1,3 @@
-<<<<<<< feature/liukunlin_home
 <template>
   <div class="homeWrapper">
     <div class="dataAnalysis">
@@ -21,8 +20,8 @@
       </template>
       <template v-slot:operation>
         <div class="operations">
-          <span class="more">更多</span>
-          <span class="publish">发布</span>
+          <el-button class="more" type="success">更多</el-button>
+          <el-button class="publish" type="primary">发布</el-button>
         </div>
       </template>
     </ContetTemplate>
@@ -40,7 +39,7 @@
           </div>
         </div>
         <div class="operations">
-          <span class="more">更多</span>
+          <el-button class="more" type="success">更多</el-button>
         </div>
       </template>
     </ContetTemplate>
@@ -58,7 +57,7 @@
           </div>
         </div>
         <div class="operations">
-          <span class="edit">编辑</span>
+          <el-button class="edit" type="danger">编辑</el-button>
         </div>
       </template>
     </ContetTemplate>
@@ -71,7 +70,7 @@
   date: 2021/10/24
   describe: 实现主页静态页面。
 */
-import ContetTemplate from "./components/content-template.vue";
+import ContetTemplate from "components/content-template.vue";
 export default {
   data() {
     return {
@@ -154,13 +153,14 @@ export default {
 <style lang="less" scoped>
 .homeWrapper {
   line-height: normal;
+  padding: 40px 100px;
 }
 .dataAnalysis {
   display: flex;
   justify-content: space-between;
 }
 .analysisItem {
-  width: 260px;
+  width: 300px;
   background: white;
   height: 90px;
   cursor: pointer;
@@ -183,32 +183,31 @@ export default {
     margin-bottom: 8px;
     text-align: left;
     padding-left: 30px;
-    font-size: 14px;
+    font-size: 18px;
   }
 }
 .operations {
   position: absolute;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 0;
   span {
     cursor: pointer;
-    margin: 0 4px;
+    margin: 0 12px;
   }
   .more {
-    color: #2f742d;
+    font-size: 14px;
   }
   .publish {
-    color: blue;
+    font-size: 14px;
   }
   .edit {
-    color: red;
+    font-size: 14px;
   }
 }
 .tableItem {
   text-align: left;
   padding-left: 30px;
-  font-size: 14px;
+  font-size: 18px;
   margin-bottom: 8px;
   .tableTitle {
     display: inline-block;
@@ -216,3 +215,4 @@ export default {
     font-weight: bold;
   }
 }
+</style>
