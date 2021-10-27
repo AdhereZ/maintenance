@@ -11,6 +11,7 @@
       <div class="information">
         <div class="identity">身份：超级管理员</div>
         <div class="username">用户名：admin</div>
+        <el-button @click="logout">退出登录</el-button>
       </div>
     </el-header>
     <el-container>
@@ -187,6 +188,9 @@ export default {
     savePath(index) {
       window.sessionStorage.setItem('activePath',index)
       this.activePath = index
+    },
+    logout() {
+      this.$router.push('/login')
     }
   },
 };
@@ -262,6 +266,13 @@ export default {
     font-size: 16px;
     .username {
       margin-left: 15px;
+    }
+    .el-button {
+      height: 30px;
+      width: 70px;
+      font-size: 12px;
+      padding: 7px;
+      margin-left: 20px;
     }
   }
 }

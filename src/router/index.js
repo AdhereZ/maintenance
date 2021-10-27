@@ -3,11 +3,28 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+/* const Home = () => import('views/Back-stage/home/Home')
+const Layout = () => import('views/Back-stage/layout/Layout')
+
+const UserList = () => import('views/Back-stage/users/UserList')
+const RemoveUser = () => import('views/Back-stage/users/RemoveUser')
+const LoginLog = () => import('views/Back-stage/users/LoginLog')
+
+const RoleManage = () => import('views/Back-stage/admin/RoleManage')
+const AuthManage = () => import('views/Back-stage/admin/AuthManage')
+const AdminList = () => import('views/Back-stage/admin/AdminList')
+
+const SystemSetting = () => import('views/Back-stage/system/SystemSetting')
+const SystemLog = () => import('views/Back-stage/system/SystemLog')
+
+const Feedback = () => import('views/Back-stage/feedback/Feedback')
+
+const VRSystem = () => import('views/Back-stage/moduleManage/VRSystem')
+const MRSystem = () => import('views/Back-stage/moduleManage/MRSystem')
+const QuestionManage = () => import('views/Back-stage/moduleManage/QuestionManage') */
+
 const Home = () => import('views/home/Home')
 const Layout = () => import('views/layout/Layout')
-const Login = () => import('views/login/Login')
-const Register = () => import('views/register/Register')
-const FindPassword = () => import('views/findPassword/FindPassword')
 
 const UserList = () => import('views/users/UserList')
 const RemoveUser = () => import('views/users/RemoveUser')
@@ -25,6 +42,10 @@ const Feedback = () => import('views/feedback/Feedback')
 const VRSystem = () => import('views/moduleManage/VRSystem')
 const MRSystem = () => import('views/moduleManage/MRSystem')
 const QuestionManage = () => import('views/moduleManage/QuestionManage')
+
+const Login = () => import('views/login/Login')
+const Register = () => import('views/register/Register')
+const FindPassword = () => import('views/findPassword/FindPassword')
 
 const Index = () => import('views/User/index/Index')
 
