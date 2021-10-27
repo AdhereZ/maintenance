@@ -1,9 +1,10 @@
 <template>
-  <h1>system12345</h1>
+  <h2>系统设置界面</h2>
 </template>
 
 <script>
 export default {};
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+</style>

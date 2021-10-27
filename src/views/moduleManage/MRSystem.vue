@@ -1,5 +1,5 @@
 <template>
-  <h1>user</h1>
+  <h1>MR</h1>
 </template>
 
 <script>

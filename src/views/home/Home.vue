@@ -1,3 +1,4 @@
+<<<<<<< feature/liukunlin_home
 <template>
   <div class="homeWrapper">
     <div class="dataAnalysis">
@@ -215,4 +216,3 @@ export default {
     font-weight: bold;
   }
 }
-</style>
