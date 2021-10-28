@@ -25,16 +25,56 @@
         <el-table-column prop="id" label="角色id"></el-table-column>
         <el-table-column prop="mangaeid" label="管理员id"> </el-table-column>
         <el-table-column prop="grade" label="权限等级"> </el-table-column>
-        <el-table-column prop="state" label="状态"> </el-table-column>
-        <el-table-column prop="operate" label="操作"> 
-        <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text" size="small">启动</el-button>
-        <el-button type="text" size="small">禁止</el-button>
-        <el-button type="text" size="small">编辑</el-button>
-        <el-button type="text" size="small">删除</el-button>
-      </template>
-      </el-table-column>
+        <el-table-column label="状态">
+          <template slot-scope="scope">
+            <el-switch
+              v-model="scope.row.mg_state"
+              @change="userStateChanged(scope.row)"
+            ></el-switch>
+          </template>
+        </el-table-column>
+         <el-table-column label="操作" width="180px">
+          <template slot-scope="scope">
+            <!-- 修改按钮 -->
+            <el-button
+              type="primary"
+              icon="el-icon-edit"
+              size="mini"
+              @click="showEditDialog(scope.row.id)"
+            ></el-button>
+            <!-- 删除按钮 -->
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              size="mini"
+              @click="removeUserById(scope.row.id)"
+            ></el-button>
+            <el-tooltip
+              effect="dark"
+              content="分配角色"
+              placement="top-start"
+              :enterable="false"
+            >
+              <el-button
+                type="warning"
+                icon="el-icon-setting"
+                size="mini"
+              ></el-button>
+            </el-tooltip>
+          </template>
+        </el-table-column>
       </el-table>
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="queryInfo.pagenum"
+        :page-sizes="[1, 2, 5, 10]"
+        :page-size="queryInfo.pagesize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+      >
+      </el-pagination>
+  
     </div>
   </div>
 </template>
@@ -52,8 +92,21 @@
         value1: '',
         value2: '',
 
+        
+
         // 用户名的数据
         input: '',
+
+        // 获取用户列表的参数对象
+      queryInfo: {
+        query: '',
+        // 当前的页数
+        pagenum: 1,
+        // 当前每页显示的条数
+        pagesize: 2
+      },
+      userList: [],
+      total: 0,
 
         // 日志表格的数据
         tableData: [{
