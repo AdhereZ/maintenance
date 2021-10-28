@@ -1,8 +1,8 @@
 <template>
   <div class="banner">
-    <el-carousel :interval="4000" height="1080px">
+    <el-carousel :interval="4000" height="720px" class="bannerImg">
       <el-carousel-item v-for="item in banners" :key="item.id">
-        <div class="bannerImg">
+        <div>
           <img :src="item.src" :alt="item.deceration">
         </div>
       </el-carousel-item>
@@ -29,11 +29,6 @@ export default {
           deceration: 'banner3',
           src: require('/src/assets/uploads/3.jpg'),
           id: 3
-        },
-        {
-          deceration: 'banner4',
-          src: require('/src/assets/uploads/4.png'),
-          id: 4
         }
       ]
     };
@@ -44,7 +39,11 @@ export default {
 <style lang="less" scoped>
 .banner {
   .bannerImg {
-    width: 1920px;
+    width: 1280px;
+    margin: 0 auto;
+    img {
+      height: 720px;
+    }
   }
 }
 </style>
