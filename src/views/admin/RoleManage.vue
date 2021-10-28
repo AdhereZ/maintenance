@@ -22,23 +22,56 @@
       <!-- 查找表格部分 -->
       <el-table :data="tableData" tooltip-effect="dark" style="width: 100%" :header-cell-style="setHeaderColor">
         <el-table-column type="selection"> </el-table-column>
-        <el-table-column prop="id" label="角色id"></el-table-column>
-        <el-table-column prop="name" label="角色名"> </el-table-column>
-        <el-table-column prop="jurisdiction" label="拥有权限"> </el-table-column>
-        <el-table-column prop="describe" label="描述"> </el-table-column>
-        <el-table-column prop="state" label="状态"> </el-table-column>
-        <el-table-column prop="operate" label="操作"> 
-        <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text" size="small">启动</el-button>
-        <el-button type="text" size="small">禁止</el-button>
-        <el-button type="text" size="small">编辑</el-button>
-        <el-button type="text" size="small">删除</el-button>
-      </template>
-      </el-table-column>
+        <el-table-column label="角色id" prop="roleid"></el-table-column>
+        <el-table-column label="角色名" prop="rolename"></el-table-column>
+        <el-table-column label="拥有权限" prop="rolejurisdiction"></el-table-column>
+        <el-table-column label="描述" prop="roledescribe"></el-table-column>
+        </el-table-column>
+         <el-table-column label="操作" width="180px">
+          <template slot-scope="scope">
+            <!-- 修改按钮 -->
+            <el-button
+              type="primary"
+              icon="el-icon-edit"
+              size="mini"
+              @click="showEditDialog(scope.row.id)"
+            ></el-button>
+            <!-- 删除按钮 -->
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              size="mini"
+              @click="removeUserById(scope.row.id)"
+            ></el-button>
+            <el-tooltip
+              effect="dark"
+              content="分配角色"
+              placement="top-start"
+              :enterable="false"
+            >
+              <el-button
+                type="warning"
+                icon="el-icon-setting"
+                size="mini"
+              ></el-button>
+            </el-tooltip>
+          </template>
+        </el-table-column>
       </el-table>
-    </div>
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="queryInfo.pagenum"
+        :page-sizes="[1, 2, 5, 10]"
+        :page-size="queryInfo.pagesize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+      >
+      </el-pagination>
+      </div>
   </div>
 </template>
+    
 
 <script>
   export default {
@@ -56,20 +89,55 @@
         // 用户名的数据
         input: '',
 
+         // 获取用户列表的参数对象
+      queryInfo: {
+        query: '',
+        // 当前的页数
+        pagenum: 1,
+        // 当前每页显示的条数
+        pagesize: 2
+      },
+      userList: [],
+      total: 0,
+      // 监听 pagesize 改变的事件
+    handleSizeChange(newSize) {
+      this.queryInfo.pagesize = newSize
+      this.getUserList()
+      console.log(newSize)
+    },
+    // 监听页码值改变的事件
+    handleCurrentChange(newPage) {
+      this.queryInfo.pagenum = newPage
+      this.getUserList()
+      console.log(newPage)
+    },
+    // 修改用户状态
+    async userStateChanged(userInfo) {
+      const { data: res } = await this.$http.put(
+        `users/${userInfo.id}/state/${userInfo.mg_state}`
+      )
+      if (res.meta.status !== 200) {
+        userInfo.mg_state = !userInfo.mg_state
+        return this.$message.error(res.meta.msg)
+      }
+      this.$message.success(res.meta.msg)
+    },
+
+
         // 日志表格的数据
         tableData: [{
-            id: 1,
-            name: '超级管理员',
-            jurisdiction: '......',
-            describe: '......',
-            state: '启用',
+            roleid: 1,
+            rolename: '超级管理员',
+            rolejurisdiction: '......',
+            roledescribe: '......',
+            rolestate: '启用',
           },
           {
-            id: 2,
-            name: '一级管理员',
-            jurisdiction: '......',
-            describe: '......',
-            state: '启用',
+            roleid: 2,
+            rolename: '一级管理员',
+            rolejurisdiction: '......',
+            roledescribe: '......',
+            rolestate: '启用',
           }
         ],
         multipleSelection: []
