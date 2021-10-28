@@ -44,6 +44,11 @@ export default {
     img {
       height: 720px;
     }
+    /deep/ .el-carousel__button {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+    }
   }
 }
 </style>
