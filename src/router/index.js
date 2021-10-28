@@ -47,7 +47,9 @@ const Login = () => import('views/login/Login')
 const Register = () => import('views/register/Register')
 const FindPassword = () => import('views/findPassword/FindPassword')
 
+const User = () => import('views/User/User')
 const Index = () => import('views/User/index/Index')
+const QuestionBank = () => import('views/User/questionBank/QuestionBank')
 
 const routes = [{
     path: '/',
@@ -141,9 +143,21 @@ const routes = [{
     ]
   },
   {
-    path: '/index',
-    name: 'Index',
-    component: Index
+    path: '/user',
+    name: 'user',
+    component: User,
+    children: [{
+      path: '',
+      redirect: 'index'
+    }, {
+      path: 'index',
+      name: 'Index',
+      component: Index,
+    }, {
+      path: 'questionBank',
+      name: 'QuestionBank',
+      component: QuestionBank,
+    }]
   }
 ]
 
