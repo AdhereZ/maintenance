@@ -1,24 +1,33 @@
 <template>
   <div>
-    <ul class="tab-title">
       <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>管理员管理</el-breadcrumb-item>
       <el-breadcrumb-item>权限管理</el-breadcrumb-item>
       </el-breadcrumb>
-    </ul>
-    <div class="log-header w">
-      <h2>
-        权限管理
-      </h2>
-      <div class="block">
-        <el-date-picker v-model="value1" type="date" placeholder="起始日"> </el-date-picker>
-        <el-date-picker v-model="value2" type="date" placeholder="截止日"> </el-date-picker>
-        <el-input v-model="input" placeholder="请输入用户名"></el-input>
-        <el-button type="primary" icon="el-icon-search" class="search-button">搜索</el-button>
-      </div>
-    </div>
-    <div class="log-main w">
+    <el-card>
+      <!--搜索与添加区域-->
+      <el-row :gutter="20">
+        <el-col :span="15">
+          <el-input
+            placeholder="请输入内容"
+            v-model="queryInfo.query"
+            clearable
+            @clear="getUserList"
+          >
+            <el-button
+              slot="append"
+              icon="el-icon-search"
+              @click="getUserList"
+            ></el-button>
+          </el-input>
+        </el-col>
+        <el-col :span="4">
+          <el-button type="primary" @click="addDialogVisible = true"
+            >添加用户</el-button
+          >
+        </el-col>
+      </el-row>
       <!-- 查找表格部分 -->
       <el-table :data="tableData" tooltip-effect="dark" style="width: 100%" :header-cell-style="setHeaderColor">
         <el-table-column type="selection"> </el-table-column>
@@ -68,6 +77,7 @@
         :total="total"
       >
       </el-pagination>
+      </el-card>
       </div>
   </div>
 </template>
