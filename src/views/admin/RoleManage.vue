@@ -28,7 +28,7 @@
         </el-col>
       </el-row>
       <!-- 查找表格部分 -->
-      <el-table :data="tableData" tooltip-effect="dark"  :header-cell-style="setHeaderColor">
+      <!-- <el-table :data="tableData" tooltip-effect="dark"  :header-cell-style="setHeaderColor"> -->
 
   
       <!--列表区域-->
@@ -157,5 +157,8 @@ handleCurrentChange(newPage) {
 .el-table{
   margin-top: 15px;
   font-size: 12px;
+}
+.el-pagination {
+  margin-top: 15px;
 }
 </style>

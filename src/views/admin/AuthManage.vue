@@ -34,7 +34,6 @@
         <el-table-column label="角色名" prop="rolename"></el-table-column>
         <el-table-column label="拥有权限" prop="rolejurisdiction"></el-table-column>
         <el-table-column label="描述" prop="roledescribe"></el-table-column>
-        </el-table-column>
          <el-table-column label="操作" width="180px">
           <template slot-scope="scope">
             <!-- 修改按钮 -->
@@ -66,8 +65,6 @@
           </template>
         </el-table-column>
       </el-table>
-      </el-card>
-      </el-card>
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -80,7 +77,6 @@
       </el-pagination>
       </el-card>
       </div>
-  </div>
 </template>
 <script>
   export default {
@@ -149,5 +145,8 @@ handleCurrentChange(newPage) {
 .el-table{
   margin-top: 15px;
   font-size: 12px;
+}
+.el-pagination {
+  margin-top: 15px;
 }
 </style>

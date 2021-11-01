@@ -72,8 +72,8 @@
           </template>
         </el-table-column>
       </el-table>
-</el-card>
-</el-card>
+
+
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -84,7 +84,7 @@
         :total="total"
       >
       </el-pagination>
-    </el-card>
+</el-card>
   </div>
 </template>
 
@@ -153,5 +153,8 @@ handleCurrentChange(newPage) {
 .el-table{
   margin-top: 15px;
   font-size: 12px;
+}
+.el-pagination {
+  margin-top: 15px;
 }
 </style>
