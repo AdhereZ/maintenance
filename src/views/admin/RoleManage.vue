@@ -1,16 +1,17 @@
 <template>
   <div>
       <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>管理员管理</el-breadcrumb-item>
-      <el-breadcrumb-item>角色管理</el-breadcrumb-item>
-      </el-breadcrumb>
+      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>用户管理</el-breadcrumb-item>
+      <el-breadcrumb-item>用户列表</el-breadcrumb-item>
+    </el-breadcrumb>
+
       <el-card>
       <!--搜索与添加区域-->
-      <el-row :gutter="20">
-        <el-col :span="15">
+      <el-row  :gutter="20">
+        <el-col :span="8">
           <el-input
-            placeholder="请输入内容"
+            placeholder="请输入id"
             v-model="queryInfo.query"
             clearable
             @clear="getUserList"
@@ -22,21 +23,24 @@
             ></el-button>
           </el-input>
         </el-col>
-        <el-col :span="4">
-          <el-button type="primary" @click="addDialogVisible = true"
-            >添加用户</el-button
-          >
+        <el-col :span="10">
+          <el-button type="primary" size="small" @click="addDialogVisible = true" >添加用户</el-button>
         </el-col>
       </el-row>
       <!-- 查找表格部分 -->
       <el-table :data="tableData" tooltip-effect="dark"  :header-cell-style="setHeaderColor">
+
+  
+      <!--列表区域-->
+      <el-table :data="tableData" tooltip-effect="dark" style="width: 100%" border stripe class="log-table" :header-cell-style="setHeaderColor">
         <el-table-column type="selection"> </el-table-column>
         <el-table-column label="角色id" prop="roleid"></el-table-column>
         <el-table-column label="角色名" prop="rolename"></el-table-column>
         <el-table-column label="拥有权限" prop="rolejurisdiction"></el-table-column>
         <el-table-column label="描述" prop="roledescribe"></el-table-column>
         <!-- </el-table-column> -->
-         <el-table-column label="操作" width="180px">
+        <el-table-column label="操作" width="180px">
+
           <template slot-scope="scope">
             <!-- 修改按钮 -->
             <el-button
@@ -65,19 +69,22 @@
               ></el-button>
             </el-tooltip>
           </template>
-        </el-table-column>
+</el-table-column>
+
       </el-table>
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="queryInfo.pagenum"
-        :page-sizes="[1, 2, 5, 10]"
-        :page-size="queryInfo.pagesize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="total"
-      >
-      </el-pagination>
+      <!-- 分页区域 -->
+<el-pagination
+    @size-change="handleSizeChange"
+    @current-change="handleCurrentChange"
+    :current-page="queryInfo.pagenum"
+    :page-sizes="[1, 2, 5, 10]"
+    :page-size="queryInfo.pagesize"
+    layout="total, sizes, prev, pager, next, jumper"
+    :total="total">
+</el-pagination>
+
       </el-card>
+
     </div>
 </template>
     
@@ -86,17 +93,6 @@
   export default {
     data() {
       return {
-        // 起始日和截止日的数据
-        pickerOptions: {
-          disabledDate(time) {
-            return time.getTime() > Date.now();
-          }
-        },
-        value1: '',
-        value2: '',
-
-        // 用户名的数据
-        input: '',
 
          // 获取用户列表的参数对象
       queryInfo: {
@@ -108,32 +104,9 @@
       },
       userList: [],
       total: 0,
-      // 监听 pagesize 改变的事件
-    handleSizeChange(newSize) {
-      this.queryInfo.pagesize = newSize
-      this.getUserList()
-      console.log(newSize)
-    },
-    // 监听页码值改变的事件
-    handleCurrentChange(newPage) {
-      this.queryInfo.pagenum = newPage
-      this.getUserList()
-      console.log(newPage)
-    },
-    // 修改用户状态
-    async userStateChanged(userInfo) {
-      const { data: res } = await this.$http.put(
-        `users/${userInfo.id}/state/${userInfo.mg_state}`
-      )
-      if (res.meta.status !== 200) {
-        userInfo.mg_state = !userInfo.mg_state
-        return this.$message.error(res.meta.msg)
-      }
-      this.$message.success(res.meta.msg)
-    },
 
 
-        // 日志表格的数据
+        // 数据
         tableData: [{
             roleid: 1,
             rolename: '超级管理员',
@@ -153,17 +126,36 @@
       };
     },
     methods: {
-      setHeaderColor({
-        row,
-        column,
-        rowIndex,
-        columnIndex
-      }) {
-        return "background-color: #ddd";
-      }
+      setHeaderColor({ row, column, rowIndex, columnIndex }) {
+      return 'background-color: #f2f2f2';
+    },
+    // 监听 pagesize改变的事件
+handleSizeChange(newSize) {
+  this.queryInfo.pagesize = newSize;
+  this.getUserList();
+},
+// 监听页码值改变的时间
+handleCurrentChange(newPage) {
+  this.queryInfo.pagenum = newPage;
+  this.getUserList();
+},
     }
   };
 </script>
 
 <style lang="less" scoped>
+* {
+  line-height: 20px;
+  text-align: left;
+}
+
+.el-breadcrumb {
+  margin-bottom: 15px;
+  font-size: 12px;
+}
+
+.el-table{
+  margin-top: 15px;
+  font-size: 12px;
+}
 </style>
