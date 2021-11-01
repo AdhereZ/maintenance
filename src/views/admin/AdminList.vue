@@ -7,10 +7,11 @@
       </el-breadcrumb>
     <el-card>
       <!--搜索与添加区域-->
-      <el-row :gutter="20">
-        <el-col :span="15">
+      <!--搜索与添加区域-->
+      <el-row  :gutter="20">
+        <el-col :span="8">
           <el-input
-            placeholder="请输入内容"
+            placeholder="请输入id"
             v-model="queryInfo.query"
             clearable
             @clear="getUserList"
@@ -22,14 +23,12 @@
             ></el-button>
           </el-input>
         </el-col>
-        <el-col :span="4">
-          <el-button type="primary" @click="addDialogVisible = true"
-            >添加用户</el-button
-          >
+        <el-col :span="10">
+          <el-button type="primary" size="small" @click="addDialogVisible = true" >添加用户</el-button>
         </el-col>
       </el-row>
-      <!-- 查找表格部分 -->
-      <el-table :data="tableData" tooltip-effect="dark" style="width: 100%" :header-cell-style="setHeaderColor">
+      <!-- 表格部分 -->
+     <el-table :data="tableData" tooltip-effect="dark" style="width: 100%" border stripe class="log-table" :header-cell-style="setHeaderColor">
         <el-table-column type="selection"> </el-table-column>
         <el-table-column prop="id" label="角色id"></el-table-column>
         <el-table-column prop="mangaeid" label="管理员id"> </el-table-column>
@@ -73,7 +72,8 @@
           </template>
         </el-table-column>
       </el-table>
-
+</el-card>
+</el-card>
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -92,20 +92,7 @@
   export default {
     data() {
       return {
-        // 起始日和截止日的数据
-        pickerOptions: {
-          disabledDate(time) {
-            return time.getTime() > Date.now();
-          }
-        },
-        value1: '',
-        value2: '',
-
         
-
-        // 用户名的数据
-        input: '',
-
         // 获取用户列表的参数对象
       queryInfo: {
         query: '',
@@ -135,17 +122,36 @@
       };
     },
     methods: {
-      setHeaderColor({
-        row,
-        column,
-        rowIndex,
-        columnIndex
-      }) {
-        return "background-color: #ddd";
-      }
+      setHeaderColor({ row, column, rowIndex, columnIndex }) {
+      return 'background-color: #f2f2f2';
+    },
+    // 监听 pagesize改变的事件
+handleSizeChange(newSize) {
+  this.queryInfo.pagesize = newSize;
+  this.getUserList();
+},
+// 监听页码值改变的时间
+handleCurrentChange(newPage) {
+  this.queryInfo.pagenum = newPage;
+  this.getUserList();
+},
     }
   };
 </script>
 
 <style lang="less" scoped>
+* {
+  line-height: 20px;
+  text-align: left;
+}
+
+.el-breadcrumb {
+  margin-bottom: 15px;
+  font-size: 12px;
+}
+
+.el-table{
+  margin-top: 15px;
+  font-size: 12px;
+}
 </style>
