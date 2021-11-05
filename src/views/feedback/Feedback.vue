@@ -5,24 +5,6 @@
       <el-breadcrumb-item>反馈中心</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="feedback-main">
-      <!-- <el-row class="block">
-          <el-col>
-            <el-date-picker v-model="startDay" type="date" placeholder="起始日"></el-date-picker>
-          </el-col>
-          <el-col>
-            <el-date-picker v-model="endDay" type="date" placeholder="截止日"> </el-date-picker>
-          </el-col>
-          <el-col>
-            <el-input v-model.trim="username" placeholder="请输入用户名"></el-input>
-          </el-col>
-          <el-col v-if="flagButton">
-            <el-button type="primary" icon="el-icon-search" class="search-button" @click="search">搜索</el-button>
-          </el-col>
-          <el-col v-else>
-            <el-button type="primary" icon="el-icon-search" disabled class="search-button" @click="search">搜索</el-button>
-          </el-col>
-        </el-row> -->
-      <!-- 查找表格部分 -->
       <el-table :data="tableDataFeedback" tooltip-effect="dark" style="width: 100%" border stripe class="feedback-table" :header-cell-style="setHeaderColor">
         <!-- :header-cell-style="setHeaderColor" -->
         <el-table-column prop="status" label="状态"></el-table-column>
@@ -138,7 +120,7 @@ export default {
       }
       return cellValue;
     },
-    checkFeedback(index, rows) {
+    checkFeedback(index) {
       this.describeIndex = index;
     },
     deleteFeedback(index, rows) {

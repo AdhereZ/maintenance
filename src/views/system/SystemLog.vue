@@ -23,12 +23,6 @@
           <el-button type="primary" icon="el-icon-search" disabled class="search-button" @click="search">搜索</el-button>
         </el-col>
       </el-row>
-      <!-- <div class="block">
-      <el-date-picker v-model="value1" type="date" placeholder="起始日"></el-date-picker>
-      <el-date-picker v-model="value2" type="date" placeholder="截止日"> </el-date-picker>
-      <el-input v-model="input" placeholder="请输入用户名"></el-input>
-      <el-button type="primary" icon="el-icon-search" class="search-button">搜索</el-button>
-    </div> -->
       <!-- 查找表格部分 -->
       <el-table :data="tableDataSearch" tooltip-effect="dark" style="width: 100%" border stripe class="log-table" :header-cell-style="setHeaderColor">
         <!-- :header-cell-style="setHeaderColor" -->
@@ -40,6 +34,11 @@
         <el-table-column prop="operatorId" label="操作员ID"> </el-table-column>
         <el-table-column prop="operator" label="操作员"> </el-table-column>
         <el-table-column prop="date" label="操作时间" sortable> </el-table-column>
+        <el-table-column label="操作" width="100px">
+          <template slot-scope="scope">
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeSystemlog(scope.row.id)"></el-button>
+          </template>
+        </el-table-column>
       </el-table>
 
       <el-table :data="tableData" tooltip-effect="dark" style="width: 100%" border stripe class="log-table" :header-cell-style="setHeaderColor">
@@ -51,6 +50,11 @@
         <el-table-column prop="operatorId" label="操作员ID"> </el-table-column>
         <el-table-column prop="operator" label="操作员"> </el-table-column>
         <el-table-column prop="date" label="操作时间" sortable> </el-table-column>
+        <el-table-column label="操作" width="100px">
+          <template slot-scope="scope">
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click.native.prevent="removeSystemlog(scope.$index, tableData)"></el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </el-card>
   </div>
@@ -140,6 +144,9 @@ export default {
       } else {
         this.flagButton = false;
       }
+    },
+    removeSystemlog(index, rows) {
+      rows.splice(index, 1);
     }
   },
   updated() {
@@ -176,6 +183,7 @@ export default {
 .block button {
   padding: 0 10px;
   margin: 0 20px 0 5px;
+  height: 40px;
 }
 // 搜索模块
 
