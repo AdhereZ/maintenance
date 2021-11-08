@@ -36,9 +36,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.user {
-  background-color: #ccc;
-}
 header {
   height: 60px;
   background-color: #001529;
