@@ -44,6 +44,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
 .loginPage {
   // background-color: #000;
   position: relative;

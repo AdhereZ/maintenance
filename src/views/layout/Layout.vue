@@ -11,7 +11,7 @@
       <div class="information">
         <div class="identity">身份：超级管理员</div>
         <div class="username">用户名：admin</div>
-        <el-button @click="logout">退出登录</el-button>
+        <el-button @click="logout">退出</el-button>
       </div>
     </el-header>
     <el-container>
@@ -72,6 +72,7 @@ export default {
     return {
       isCollapse: false,
       activePath: "",
+
       menuList: [
         { name: "主页", id: 99, icon: "el-icon-s-home", path: "home" },
         {

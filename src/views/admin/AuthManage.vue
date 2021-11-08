@@ -34,7 +34,7 @@
         <el-table-column label="角色名" prop="rolename"></el-table-column>
         <el-table-column label="拥有权限" prop="rolejurisdiction"></el-table-column>
         <el-table-column label="描述" prop="roledescribe"></el-table-column>
-         <el-table-column label="操作" width="180px">
+         <el-table-column label="操作" width="300px">
           <template slot-scope="scope">
             <!-- 修改按钮 -->
             <el-button
