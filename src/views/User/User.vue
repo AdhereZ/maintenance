@@ -2,7 +2,7 @@
   <div class="user">
     <header>
       <div class="head-left">
-        <img src="https://pic.imgdb.cn/item/6178d8332ab3f51d91b90f87.jpg" alt="LOGO" class="logo">
+        <img :src="userSrc" alt="LOGO" class="logo">
         <router-link to='/user/questionBank'>题库</router-link>
         <router-link to='/user/contact'>联系我们</router-link>
       </div>
@@ -29,16 +29,14 @@
 export default {
   data() {
     return {
-      seachContent: ''
+      seachContent: '',
+      userSrc: require('/src/assets/uploads/clz.jpg')
     };
   }
 };
 </script>
 
 <style lang="less" scoped>
-.user {
-  background-color: #ccc;
-}
 header {
   height: 60px;
   background-color: #001529;
