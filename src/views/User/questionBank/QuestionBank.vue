@@ -10,10 +10,10 @@
           </label>
         </div>
       </div>
-      <el-pagination background layout="prev, pager, next, jumper" :total="30" :page-size="4" :hide-on-single-page="noPagination" @current-change="currentChange">
+      <el-pagination background layout="prev, pager, next, jumper" :total="total" :page-size="pageLimit" :hide-on-single-page="noPagination" @current-change="currentChange">
         <!-- 只有一页时隐藏分页 -->
       </el-pagination>
-      <el-button type="success" class="submit">提交</el-button>
+      <el-button type="success" class="submit" v-if="canSubmit">提交</el-button>
     </el-card>
   </div>
 </template>
@@ -117,59 +117,18 @@ export default {
         }
       ],
       noPagination: true,
-      questionLimit: 4
+      total: 30,
+      pageLimit: 4,
+      canSubmit: false
     };
   },
   methods: {
     currentChange(page) {
-      this.questionList = [
-        {
-          id: 5,
-          name: "从字符串 const str = 'qwbewrbbeqqbbbweebbbbqee';中能得到结果 ['b', 'bb', 'bbb', 'bbbb'] 以下错误语句是？",
-          optionsName: 'result1',
-          options: [
-            {
-              id: 1,
-              value: 'str.match(/b+/g)'
-            },
-            {
-              id: 2,
-              value: 'str.match(/b*/g)'
-            },
-            {
-              id: 3,
-              value: 'str.match(/b{1,4}/g)'
-            },
-            {
-              id: 4,
-              value: 'str.match(/b{1,5}/g)'
-            }
-          ]
-        },
-        {
-          id: 6,
-          name: '777 * 777 = :',
-          optionsName: 'result3',
-          options: [
-            {
-              id: 1,
-              value: '603729'
-            },
-            {
-              id: 2,
-              value: '603629'
-            },
-            {
-              id: 3,
-              value: '612559'
-            },
-            {
-              id: 4,
-              value: '653359'
-            }
-          ]
-        }
-      ];
+      if (page === Math.ceil(this.total / this.pageLimit)) {
+        this.canSubmit = true;
+      } else {
+        this.canSubmit = false;
+      }
     }
   }
 };
