@@ -44,6 +44,7 @@ const MRSystem = () => import('views/moduleManage/MRSystem')
 const QuestionManage = () => import('views/moduleManage/QuestionManage')
 
 const Login = () => import('views/login/Login')
+const BackLogin = () => import('views/login/BackLogin')
 const Register = () => import('views/register/Register')
 const FindPassword = () => import('views/findPassword/FindPassword')
 
@@ -59,6 +60,11 @@ const routes = [{
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/back-login',
+    name: 'BackLogin',
+    component: BackLogin
   },
   {
     path: '/register',

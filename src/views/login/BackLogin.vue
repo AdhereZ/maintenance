@@ -18,28 +18,28 @@
           <el-button type="primary" @click="submitForm">登录</el-button>
           <el-button plain class="register" @click="toRegister">注册</el-button>
         </el-form-item>
-        <router-link to="/back-login" style="color: #858585; position: absolute;
+        <router-link to="/login" style="color: #409eff; position: absolute;
         bottom: -240px;
         left: 50%;
-        transform: translateX(-50%);">to backstage</router-link>
+        transform: translateX(-50%);">to mainLogin</router-link>
       </el-form>
     </div>
     <div class="copyright">
       Copyright © 2021 JuLongping Technology Co.Ltd.All righht
     </div>
-
+        <div class="backTag">backstage landing system</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Login",
+  name: "BackLogin",
   data() {
     return {};
   },
   methods: {
     submitForm() {
-      this.$router.push("/user");
+      this.$router.push("/home");
     },
     toRegister() {
       this.$router.push("/register");
@@ -103,7 +103,11 @@ export default {
     transform: translateX(-50%);
     font-size: 16px;
   }
-
+    .backTag {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  font-size: 18px;
 }
-
+}
 </style>
