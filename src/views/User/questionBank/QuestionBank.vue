@@ -27,7 +27,7 @@ export default {
       questionList: [],
       noPagination: true,
       total: 30,
-      pageLimit: 4,
+      pageLimit: 10,
       canSubmit: false
     };
   },
@@ -40,18 +40,19 @@ export default {
       }
     },
     async initQuestion() {
-      const { data } = await getQuestionAPI();
-      let data1 = data.data;
-      for (let i = 0; i < data1.length; i++) {
+      const { data: result } = await getQuestionAPI();
+      let data = result.data;
+      this.total = data.length;
+      for (let i = 0; i < data.length; i++) {
         let item = {};
-        item.id = data1[i].id;
-        item.name = data1[i].ques;
+        item.id = data[i].id;
+        item.name = data[i].ques;
         item.optionsName = 'result' + item.id;
         item.options = [
-          { id: 1, value: data1[i].selectA },
-          { id: 2, value: data1[i].selectB },
-          { id: 3, value: data1[i].selectC },
-          { id: 4, value: data1[i].selectD }
+          { id: 1, value: data[i].selectA },
+          { id: 2, value: data[i].selectB },
+          { id: 3, value: data[i].selectC },
+          { id: 4, value: data[i].selectD }
         ];
         this.questionList.push(item);
       }
