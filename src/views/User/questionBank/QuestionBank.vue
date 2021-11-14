@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { getQuestionAPI } from '/src/api/questionAPI.js';
+import { getQuestionAPI } from 'network/api/questionAPI.js';
 
 export default {
   data() {

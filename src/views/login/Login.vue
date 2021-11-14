@@ -1,13 +1,13 @@
 <template>
-  <div class="loginPage">
+  <div class="loginPage" :model="loginForm">
     <div class="loginArea">
       <div class="loginTitle">登录</div>
       <el-form>
         <el-form-item label="用户名">
-          <el-input type="text"></el-input>
+          <el-input type="text" v-model="loginForm.userName"></el-input>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input type="password"></el-input>
+          <el-input type="password" v-model="loginForm.userPassword"></el-input>
         </el-form-item>
         <router-link
           to="/findPassword"
@@ -32,13 +32,23 @@
 </template>
 
 <script>
+import { login } from 'network/api/questionAPI.js';
 export default {
   name: "Login",
   data() {
-    return {};
+    return {
+       loginForm: {
+          userName: '',
+          userPassword: ''
+       }
+    };
   },
   methods: {
-    submitForm() {
+    async submitForm() {
+      const res = await login(this.loginForm)
+      let {tokenHead,token} = res.data.data
+      const token1 = tokenHead + ' ' + token
+      window.sessionStorage.setItem('token',token1)
       this.$router.push("/user");
     },
     toRegister() {

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 module.exports = {
   publicPath: '/',
   css: {
@@ -25,21 +24,7 @@ module.exports = {
       }
     }
   },
-=======
-module.exports = {
-  // 设置别名
-  configureWebpack: {
-    resolve: {
-      alias: {
-        "assets": '@/assets',
-        "common": '@/common',
-        "components": '@/components',
-        "views": '@/views',
-        "network": '@/network',
-      }
-    }
-  },
-
+  //跨域
   devServer: {
     proxy: {
       '/api': {
@@ -51,5 +36,4 @@ module.exports = {
       },
     }
   },
->>>>>>> 6910d57b30bb80962e9186d09ca1a89fb6f52181
 }
