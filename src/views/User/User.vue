@@ -3,7 +3,7 @@
     <header>
       <div class="head-left">
         <img :src="userSrc" alt="LOGO" class="logo">
-        <router-link to='/user/questionBank'>题库</router-link>
+        <router-link to='/user/questionBank' class="selected">题库</router-link>
         <router-link to='/user/contact'>联系我们</router-link>
       </div>
       <div class="head-right">
@@ -43,12 +43,17 @@ export default {
 
 <style lang="less" scoped>
 header {
+  position: fixed;
+  top: 0;
+  width: 100%;
   height: 60px;
   background-color: #001529;
+  z-index: 999;
   .logo {
     float: left;
     height: 60px;
     margin-left: 60px;
+    border-radius: 50%;
   }
   .head-left {
     float: left;
