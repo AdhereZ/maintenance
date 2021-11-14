@@ -10,15 +10,21 @@
           </label>
         </div>
       </div>
-      <el-button type="success" class="submit">提交</el-button>
+      <el-pagination background layout="prev, pager, next, jumper" :total="total" :page-size="pageLimit" :hide-on-single-page="noPagination" @current-change="currentChange">
+        <!-- 只有一页时隐藏分页 -->
+      </el-pagination>
+      <el-button type="success" class="submit" v-if="canSubmit">提交</el-button>
     </el-card>
   </div>
 </template>
 
 <script>
+import { getQuestionAPI } from '/src/api/questionAPI.js';
+
 export default {
   data() {
     return {
+      testlist: [],
       questionList: [
         {
           id: 1,
@@ -112,8 +118,28 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      noPagination: true,
+      total: 30,
+      pageLimit: 4,
+      canSubmit: false
     };
+  },
+  methods: {
+    currentChange(page) {
+      if (page === Math.ceil(this.total / this.pageLimit)) {
+        this.canSubmit = true;
+      } else {
+        this.canSubmit = false;
+      }
+    },
+    async initQuestion() {
+      const { data } = await getQuestionAPI();
+      console.log(data);
+    }
+  },
+  created() {
+    this.initQuestion();
   }
 };
 </script>

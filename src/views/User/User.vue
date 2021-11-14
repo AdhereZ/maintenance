@@ -15,7 +15,7 @@
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>个人中心</el-dropdown-item>
             <el-dropdown-item>反馈中心</el-dropdown-item>
-            <el-dropdown-item>退出登录</el-dropdown-item>
+            <el-dropdown-item @click.native="loginout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -32,6 +32,11 @@ export default {
       seachContent: '',
       userSrc: require('/src/assets/uploads/clz.jpg')
     };
+  },
+  methods: {
+    loginout() {
+      this.$router.replace('/');
+    }
   }
 };
 </script>

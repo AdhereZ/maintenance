@@ -7,7 +7,11 @@
         "build": "vue-cli-service build"
     },
     "dependencies": {
+<<<<<<< HEAD
         "amfe-flexible": "^2.2.1",
+=======
+        "axios": "^0.24.0",
+>>>>>>> 6910d57b30bb80962e9186d09ca1a89fb6f52181
         "core-js": "^3.6.5",
         "element-ui": "^2.15.6",
         "less": "^4.1.1",
