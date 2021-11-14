@@ -11,4 +11,16 @@ module.exports = {
       }
     }
   },
+
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://106.12.19.82:9000',
+        changOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      },
+    }
+  },
 }

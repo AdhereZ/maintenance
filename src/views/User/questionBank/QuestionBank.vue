@@ -19,9 +19,12 @@
 </template>
 
 <script>
+import { getQuestionAPI } from '/src/api/questionAPI.js';
+
 export default {
   data() {
     return {
+      testlist: [],
       questionList: [
         {
           id: 1,
@@ -129,7 +132,14 @@ export default {
       } else {
         this.canSubmit = false;
       }
+    },
+    async initQuestion() {
+      const { data } = await getQuestionAPI();
+      console.log(data);
     }
+  },
+  created() {
+    this.initQuestion();
   }
 };
 </script>
