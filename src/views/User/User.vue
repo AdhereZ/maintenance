@@ -3,7 +3,7 @@
     <header>
       <div class="head-left">
         <img :src="userSrc" alt="LOGO" class="logo">
-        <router-link to='/user/questionBank' class="selected">题库</router-link>
+        <router-link to='/user/questionBank'>题库</router-link>
         <router-link to='/user/contact'>联系我们</router-link>
       </div>
       <div class="head-right">

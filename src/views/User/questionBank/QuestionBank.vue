@@ -2,7 +2,7 @@
   <div>
     <el-card class="box-card">
       <div class="question" v-for="question in questionList" :key="question.id">
-        <h4>{{question.id}}. {{question.name}}</h4>
+        <h4>{{question.id}}. {{question.ques}}</h4>
         <div class="choose" v-for="option in question.options" :key="option.id">
           <label>
             <input type="radio" :name="question.optionsName" :value="option.value">
@@ -11,7 +11,6 @@
         </div>
       </div>
       <el-pagination background layout="prev, pager, next, jumper" :total="total" :page-size="pageLimit" :hide-on-single-page="noPagination" @current-change="currentChange">
-        <!-- 只有一页时隐藏分页 -->
       </el-pagination>
       <el-button type="success" class="submit" v-if="canSubmit">提交</el-button>
     </el-card>
@@ -24,6 +23,7 @@ import { getQuestionAPI } from 'network/api/questionAPI.js';
 export default {
   data() {
     return {
+      allques: [],
       questionList: [],
       noPagination: true,
       total: 30,
@@ -33,6 +33,9 @@ export default {
   },
   methods: {
     currentChange(page) {
+      const pageStart = (page - 1) * this.pageLimit;
+      const pageEnd = pageStart + this.pageLimit;
+      this.questionList = this.allques.slice(pageStart, pageEnd);
       if (page === Math.ceil(this.total / this.pageLimit)) {
         this.canSubmit = true;
       } else {
@@ -46,16 +49,18 @@ export default {
       for (let i = 0; i < data.length; i++) {
         let item = {};
         item.id = data[i].id;
-        item.name = data[i].ques;
-        item.optionsName = 'result' + item.id;
+        item.ques = data[i].ques;
+        item.optionsName = 'answer' + item.id;
         item.options = [
           { id: 1, value: data[i].selectA },
           { id: 2, value: data[i].selectB },
           { id: 3, value: data[i].selectC },
           { id: 4, value: data[i].selectD }
         ];
-        this.questionList.push(item);
+        this.allques.push(item);
       }
+
+      this.questionList = this.allques.slice(0, this.pageLimit);
     }
   },
   created() {
