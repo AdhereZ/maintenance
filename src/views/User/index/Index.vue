@@ -38,6 +38,7 @@ export default {
 
 <style lang="less" scoped>
 .banner {
+  margin-top: 60px;
   .bannerImg {
     width: 1280px;
     margin: 0 auto;
