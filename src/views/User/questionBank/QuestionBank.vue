@@ -2,7 +2,7 @@
   <div>
     <el-card class="box-card">
       <div class="question" v-for="question in questionList" :key="question.id">
-        <h4>{{question.name}}</h4>
+        <h4>{{question.id}}. {{question.ques}}</h4>
         <div class="choose" v-for="option in question.options" :key="option.id">
           <label>
             <input type="radio" :name="question.optionsName" :value="option.value">
@@ -11,7 +11,6 @@
         </div>
       </div>
       <el-pagination background layout="prev, pager, next, jumper" :total="total" :page-size="pageLimit" :hide-on-single-page="noPagination" @current-change="currentChange">
-        <!-- 只有一页时隐藏分页 -->
       </el-pagination>
       <el-button type="success" class="submit" v-if="canSubmit">提交</el-button>
     </el-card>
@@ -24,109 +23,19 @@ import { getQuestionAPI } from 'network/api/questionAPI.js';
 export default {
   data() {
     return {
-      testlist: [],
-      questionList: [
-        {
-          id: 1,
-          name: '1 + 1 = :',
-          optionsName: 'result1',
-          options: [
-            {
-              id: 1,
-              value: '1'
-            },
-            {
-              id: 2,
-              value: '2'
-            },
-            {
-              id: 3,
-              value: '3'
-            },
-            {
-              id: 4,
-              value: '4'
-            }
-          ]
-        },
-        {
-          id: 2,
-          name: '10 * 10 = :',
-          optionsName: 'result2',
-          options: [
-            {
-              id: 1,
-              value: '20'
-            },
-            {
-              id: 2,
-              value: '999'
-            },
-            {
-              id: 3,
-              value: '100'
-            },
-            {
-              id: 4,
-              value: '333'
-            }
-          ]
-        },
-        {
-          id: 3,
-          name: '777 * 777 = :',
-          optionsName: 'result3',
-          options: [
-            {
-              id: 1,
-              value: '603729'
-            },
-            {
-              id: 2,
-              value: '603629'
-            },
-            {
-              id: 3,
-              value: '612559'
-            },
-            {
-              id: 4,
-              value: '653359'
-            }
-          ]
-        },
-        {
-          id: 4,
-          name: "从字符串 const str = 'qwbewrbbeqqbbbweebbbbqee';中能得到结果 ['b', 'bb', 'bbb', 'bbbb'] 以下错误语句是？",
-          optionsName: 'result1',
-          options: [
-            {
-              id: 1,
-              value: 'str.match(/b+/g)'
-            },
-            {
-              id: 2,
-              value: 'str.match(/b*/g)'
-            },
-            {
-              id: 3,
-              value: 'str.match(/b{1,4}/g)'
-            },
-            {
-              id: 4,
-              value: 'str.match(/b{1,5}/g)'
-            }
-          ]
-        }
-      ],
+      allques: [],
+      questionList: [],
       noPagination: true,
       total: 30,
-      pageLimit: 4,
+      pageLimit: 10,
       canSubmit: false
     };
   },
   methods: {
     currentChange(page) {
+      const pageStart = (page - 1) * this.pageLimit;
+      const pageEnd = pageStart + this.pageLimit;
+      this.questionList = this.allques.slice(pageStart, pageEnd);
       if (page === Math.ceil(this.total / this.pageLimit)) {
         this.canSubmit = true;
       } else {
@@ -134,8 +43,24 @@ export default {
       }
     },
     async initQuestion() {
-      const { data } = await getQuestionAPI();
-      console.log(data);
+      const { data: result } = await getQuestionAPI();
+      let data = result.data;
+      this.total = data.length;
+      for (let i = 0; i < data.length; i++) {
+        let item = {};
+        item.id = data[i].id;
+        item.ques = data[i].ques;
+        item.optionsName = 'answer' + item.id;
+        item.options = [
+          { id: 1, value: data[i].selectA },
+          { id: 2, value: data[i].selectB },
+          { id: 3, value: data[i].selectC },
+          { id: 4, value: data[i].selectD }
+        ];
+        this.allques.push(item);
+      }
+
+      this.questionList = this.allques.slice(0, this.pageLimit);
     }
   },
   created() {
@@ -148,7 +73,7 @@ export default {
 .box-card {
   width: 1200px;
   height: 100%;
-  margin: 20px auto;
+  margin: 70px auto;
   .choose {
     position: relative;
     height: 50px;

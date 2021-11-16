@@ -43,12 +43,17 @@ export default {
 
 <style lang="less" scoped>
 header {
+  position: fixed;
+  top: 0;
+  width: 100%;
   height: 60px;
   background-color: #001529;
+  z-index: 999;
   .logo {
     float: left;
     height: 60px;
     margin-left: 60px;
+    border-radius: 50%;
   }
   .head-left {
     float: left;
