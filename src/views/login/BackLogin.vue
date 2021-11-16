@@ -2,12 +2,12 @@
   <div class="loginPage">
     <div class="loginArea">
       <div class="loginTitle">登录</div>
-      <el-form>
+      <el-form :model="loginForm">
         <el-form-item label="用户名">
-          <el-input type="text"></el-input>
+          <el-input type="text" v-model="loginForm.userName"></el-input>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input type="password"></el-input>
+          <el-input type="password" v-model="loginForm.userPassword"></el-input>
         </el-form-item>
         <router-link
           to="/findPassword"
@@ -18,27 +18,41 @@
           <el-button type="primary" @click="submitForm">登录</el-button>
           <el-button plain class="register" @click="toRegister">注册</el-button>
         </el-form-item>
-        <router-link to="/login" style="color: #409eff; position: absolute;
+        <router-link
+          to="/login"
+          style="color: #409eff; position: absolute;
         bottom: -240px;
         left: 50%;
-        transform: translateX(-50%);">to mainLogin</router-link>
+        transform: translateX(-50%);"
+          >to mainLogin</router-link
+        >
       </el-form>
     </div>
     <div class="copyright">
       Copyright © 2021 JuLongping Technology Co.Ltd.All righht
     </div>
-        <div class="backTag">backstage landing system</div>
+    <div class="backTag">backstage landing system</div>
   </div>
 </template>
 
 <script>
+import { login } from 'network/api/questionAPI.js';
 export default {
   name: "BackLogin",
   data() {
-    return {};
+    return {
+       loginForm: {
+          userName: '',
+          userPassword: ''
+       }
+    };
   },
   methods: {
-    submitForm() {
+    async submitForm() {
+       const res = await login(this.loginForm)
+      let {tokenHead,token} = res.data.data
+      const token1 = tokenHead + ' ' + token
+      window.sessionStorage.setItem('token',token1)
       this.$router.push("/home");
     },
     toRegister() {
@@ -49,7 +63,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
 .loginPage {
   // background-color: #000;
   position: relative;
@@ -78,23 +91,23 @@ export default {
       position: relative;
     }
     .btns {
+      position: absolute;
+      bottom: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      .el-button {
         position: absolute;
-        bottom: -80px;
         left: 50%;
         transform: translateX(-50%);
-        .el-button {
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          margin-top: 20px;
-          width: 350px;
-          height: 50px;
-        }
-        .register {
-          margin-top: 100px;
-          margin-left: 0;
-        }
+        margin-top: 20px;
+        width: 350px;
+        height: 50px;
       }
+      .register {
+        margin-top: 100px;
+        margin-left: 0;
+      }
+    }
   }
   .copyright {
     position: absolute;
@@ -103,11 +116,11 @@ export default {
     transform: translateX(-50%);
     font-size: 16px;
   }
-    .backTag {
-  position: absolute;
-  top: 10px;
-  left: 20px;
-  font-size: 18px;
-}
+  .backTag {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 18px;
+  }
 }
 </style>
