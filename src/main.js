@@ -8,7 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 // 导入全局样式
 import './assets/css/global.css'
-import "amfe-flexible/index.js";
+// import "amfe-flexible/index.js";
 
 
 Vue.config.productionTip = false

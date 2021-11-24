@@ -7,13 +7,11 @@
         "build": "vue-cli-service build"
     },
     "dependencies": {
-        "amfe-flexible": "^2.2.1",
         "axios": "^0.24.0",
         "core-js": "^3.6.5",
         "element-ui": "^2.15.6",
         "less": "^4.1.1",
         "less-loader": "^7.0.0",
-        "postcss-px2rem": "^0.3.0",
         "vue": "^2.6.11",
         "vue-router": "^3.2.0"
     },

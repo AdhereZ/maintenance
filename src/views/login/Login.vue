@@ -1,8 +1,8 @@
 <template>
-  <div class="loginPage" :model="loginForm">
+  <div class="loginPage" >
     <div class="loginArea">
       <div class="loginTitle">登录</div>
-      <el-form>
+      <el-form :model="loginForm">
         <el-form-item label="用户名">
           <el-input type="text" v-model="loginForm.userName"></el-input>
         </el-form-item>
