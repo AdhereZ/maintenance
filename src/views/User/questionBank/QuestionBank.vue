@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="questionBankBox">
     <el-card class="box-card">
       <div class="reviewQuestion">
-        <div v-for="(question, index) in questionList" :key="question.id" :class="question.clas">
+        <div v-for="(question, index) in questionList" :key="question.id" :class="question.clas" @click="changeCurrentQuestion(index)">
           {{(currentPage - 1) * 10 + index + 1}}
         </div>
       </div>
-      <div class="question" v-for="(question, index) in questionList" :key="question.id">
+      <div class="question" ref="question" v-for="(question, index) in questionList" :key="question.id">
         <h4>{{(index+1) +10*(currentPage-1)}}. {{question.ques}}</h4>
         <div class="choose" v-for="option in question.options" :key="option.id" @click="selectAnswer(index, question.id, option.value)">
           <label>
@@ -94,6 +94,11 @@ export default {
       item.id = id;
       item.answer = answer;
       this.useranswer.push(item);
+    },
+    changeCurrentQuestion(index) {
+      let h = this.$refs.question[index].offsetTop;
+      document.body.scrollTop = h;
+      document.documentElement.scrollTop = h;
     }
   },
   created() {
@@ -127,6 +132,7 @@ export default {
     }
   }
   .question h4 {
+    height: 40px;
     font-size: 20px;
   }
   .question:nth-of-type(n + 2) {
@@ -159,5 +165,8 @@ export default {
   .selected {
     background-color: #409eff;
   }
+}
+.questionBankBox {
+  position: relative;
 }
 </style>
