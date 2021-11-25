@@ -10,7 +10,7 @@
         <h4>{{(index+1) +10*(currentPage-1)}}. {{question.ques}}</h4>
         <div class="choose" v-for="option in question.options" :key="option.id" @click="selectAnswer(index, question.id, option.value)">
           <label>
-            <input type="radio" :name="question.optionsName" :value="option.value">
+            <input type="radio" :name="question.optionsName" :checked="(question.id+','+option.value) | check">
             <span>{{option.value}}</span>
           </label>
         </div>
@@ -24,6 +24,8 @@
 
 <script>
 import { getQuestionAPI } from 'network/api/questionAPI.js';
+
+let that = null;
 
 export default {
   data() {
@@ -53,6 +55,8 @@ export default {
       }
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
+
+      this.restore(); // 还原做题情况
     },
     async initQuestion() {
       const { data: result } = await getQuestionAPI(this.total, this.choiceQuestion);
@@ -65,6 +69,7 @@ export default {
         item2.answer = data[i].answer;
         item.id = data[i].id;
         item.ques = data[i].ques;
+        item.answer = data[i].answer;
         item.optionsName = 'answer' + item.id;
         item.options = [
           { id: 1, value: data[i].selectA },
@@ -86,22 +91,55 @@ export default {
       }
       for (let i = 0; i < this.useranswer.length; i++) {
         if (this.useranswer[i].id === id) {
-          this.useranswer[i].answer = answer;
+          this.useranswer[i].answer = answer[0];
           return;
         }
       }
       let item = {};
       item.id = id;
-      item.answer = answer;
+      while (answer[0] === ' ') {
+        answer = answer.slice(1);
+      }
+      item.answer = answer[0];
       this.useranswer.push(item);
     },
     changeCurrentQuestion(index) {
       let h = this.$refs.question[index].offsetTop;
       document.body.scrollTop = h;
       document.documentElement.scrollTop = h;
+    },
+    restore() {
+      // 还原做题情况
+      for (let i = 0; i < this.useranswer.length; i++) {
+        for (let j = 0; j < this.questionList.length; j++) {
+          if (this.questionList[j].id === this.useranswer[i].id) {
+            this.questionList[j].clas = 'selected';
+            break;
+          }
+        }
+      }
+    }
+  },
+  filters: {
+    check(str) {
+      let id = str.split(',')[0];
+      let option = str.split(',')[1];
+
+      while (option[0] === ' ') {
+        option = option.slice(1);
+      }
+      option = option[0];
+
+      for (let i = 0; i < that.useranswer.length; i++) {
+        if (that.useranswer[i].id === id && that.useranswer[i].answer === option) {
+          return true;
+        }
+      }
+      return false;
     }
   },
   created() {
+    that = this;
     this.initQuestion();
   }
 };
