@@ -17,7 +17,7 @@
       </div>
       <el-pagination background layout="prev, pager, next, jumper" :total="total" :page-size="pageLimit" :hide-on-single-page="noPagination" @current-change="currentChange">
       </el-pagination>
-      <el-button type="success" class="submit" v-if="canSubmit">提交</el-button>
+      <el-button type="success" class="submit" v-if="canSubmit" @click="doneQuestion">提交</el-button>
     </el-card>
   </div>
 </template>
@@ -118,6 +118,19 @@ export default {
           }
         }
       }
+    },
+    doneQuestion() {
+      let rightCount = 0;
+      for (let i = 0; i < this.useranswer.length; i++) {
+        for (let j = 0; j < this.allanswer.length; j++) {
+          if (this.useranswer[i].id === this.allanswer[j].id) {
+            if (this.useranswer[i].answer === this.allanswer[j].answer) {
+              rightCount++;
+            }
+          }
+        }
+      }
+      alert('得分为' + rightCount * 2 + '分');
     }
   },
   filters: {
