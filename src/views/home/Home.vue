@@ -1,11 +1,7 @@
 <template>
   <div class="homeWrapper">
     <div class="dataAnalysis">
-      <div
-        class="analysisItem"
-        v-for="(item, index) in dataAnalysisModules"
-        :key="index"
-      >
+      <div class="analysisItem" v-for="(item, index) in dataAnalysisModules" :key="index">
         <div class="title">{{ item.title }}</div>
         <div class="count">{{ item.count }}</div>
       </div>
@@ -28,11 +24,7 @@
     <ContetTemplate title="系统信息">
       <template v-slot:operation>
         <div class="table">
-          <div
-            class="tableItem"
-            v-for="(item, index) in getSystemInfoKeys"
-            :key="index"
-          >
+          <div class="tableItem" v-for="(item, index) in getSystemInfoKeys" :key="index">
             <span class="tableTitle">{{ systemInfo[item].key }}</span>
             <span style="padding-right: 12px">|</span>
             <span>{{ systemInfo[item].value }}</span>
@@ -46,11 +38,7 @@
     <ContetTemplate title="开发团队">
       <template v-slot:operation>
         <div class="table">
-          <div
-            class="tableItem"
-            v-for="(item, index) in getDevTeamKeys"
-            :key="index"
-          >
+          <div class="tableItem" v-for="(item, index) in getDevTeamKeys" :key="index">
             <span class="tableTitle">{{ devTeam[item].key }}</span>
             <span style="padding-right: 12px">|</span>
             <span>{{ devTeam[item].value }}</span>
@@ -70,70 +58,70 @@
   date: 2021/10/24
   describe: 实现主页静态页面。
 */
-import ContetTemplate from "components/content-template.vue";
+import ContetTemplate from 'components/content-template.vue';
 export default {
   data() {
     return {
       dataAnalysisModules: [
         {
-          title: "用户数",
-          count: "888",
+          title: '用户数',
+          count: '32'
         },
         {
-          title: "模块数",
-          count: "08",
+          title: '在线用户数',
+          count: '12'
         },
         {
-          title: "在线管理员数",
-          count: "12",
+          title: '模块数',
+          count: '03'
         },
         {
-          title: "一级管理员数",
-          count: "10",
+          title: '管理员数',
+          count: '5'
         },
         {
-          title: "二级管理员数",
-          count: "08",
-        },
+          title: '在线管理员数',
+          count: '2'
+        }
       ],
       systemNotices: [
         {
-          id: "1",
-          msg: "智慧轨道系统v1.0上线",
+          id: '1',
+          msg: '题库系统上线'
         },
         {
-          id: "2",
-          msg: "智慧轨道系统v2.0上线",
+          id: '2',
+          msg: 'VR教学系统版本更新'
         },
         {
-          id: "3",
-          msg: "智慧轨道系统v3.0上线",
-        },
+          id: '3',
+          msg: '智慧轨道系统v3.0上线'
+        }
       ],
       systemInfo: {
         version: {
-          value: '"1.0"',
-          key: "版本",
+          value: '1.0',
+          key: '版本'
         },
         ip: {
-          value: '"1.1.1.1"',
-          key: "服务器地址",
+          value: '106.12.19.82',
+          key: '服务器地址'
         },
         os: {
-          key: "操作系统",
-          value: "Linux",
-        },
+          key: '操作系统',
+          value: 'Linux'
+        }
       },
       devTeam: {
         versionOwn: {
-          key: "版权所有",
-          value: "feifeikun",
+          key: '版权所有',
+          value: '深圳市聚龙坪科技有限公司'
         },
         develop: {
-          key: "开发者",
-          value: "liukunlin",
-        },
-      },
+          key: '开发者',
+          value: '聚龙视觉团队'
+        }
+      }
     };
   },
   computed: {
@@ -142,11 +130,11 @@ export default {
     },
     getDevTeamKeys() {
       return Object.keys(this.devTeam);
-    },
+    }
   },
   components: {
-    ContetTemplate,
-  },
+    ContetTemplate
+  }
 };
 </script>
 
