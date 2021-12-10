@@ -19,16 +19,23 @@ export const sceneView = function (content) {
   return request.get('/moduleManage/sceneView');
 }
 
+// 修改场景
+export const changeScene = function (content) {
+  return request.post('/moduleManage/changeScene', content);
+}
 
+// 添加工具
 export const addtool = function (content) {
   return request.post('/moduleManage/addtool',content);
 }
 
-export const changeScene = function (content) {
-  return request.post('/moduleManage/changeScene',content);
-}
-
+//查看所有工具
 export const toolView = function (content) {
   return request.get('/moduleManage/toolView');
+}
+
+// 修改工具
+export const changeTool = function (content) {
+  return request.post('/moduleManage/changetool',content);
 }
 

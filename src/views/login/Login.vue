@@ -1,12 +1,12 @@
 <template>
-  <div class="loginPage" >
+  <div class="loginPage">
     <div class="loginArea">
       <div class="loginTitle">登录</div>
-      <el-form :model="loginForm">
-        <el-form-item label="用户名">
+      <el-form :model="loginForm" :rules="loginRule" ref="loginRef">
+        <el-form-item label="用户名" prop="userName">
           <el-input type="text" v-model="loginForm.userName"></el-input>
         </el-form-item>
-        <el-form-item label="密码">
+        <el-form-item label="密码" prop="userPassword">
           <el-input type="password" v-model="loginForm.userPassword"></el-input>
         </el-form-item>
         <router-link
@@ -18,39 +18,67 @@
           <el-button type="primary" @click="submitForm">登录</el-button>
           <el-button plain class="register" @click="toRegister">注册</el-button>
         </el-form-item>
-        <router-link to="/back-login" style="color: #858585; position: absolute;
+        <router-link
+          to="/back-login"
+          style="color: #858585; position: absolute;
         bottom: -240px;
         left: 50%;
-        transform: translateX(-50%);">to backstage</router-link>
+        transform: translateX(-50%);"
+          >to backstage</router-link
+        >
       </el-form>
     </div>
     <div class="copyright">
       Copyright © 2021 JuLongping Technology Co.Ltd.All righht
     </div>
-
   </div>
 </template>
 
 <script>
-import { login } from 'network/api/questionAPI.js';
+import { login } from "network/api/questionAPI.js";
+import { throttle } from "utils/public";
+
 export default {
   name: "Login",
   data() {
     return {
-       loginForm: {
-          userName: '',
-          userPassword: ''
-       }
+      loginForm: {
+        userName: "",
+        userPassword: "",
+      },
+      loginRule: {
+        userName: [
+          { required: true, message: "请输入用户名", trigger: "blur" },
+          { min: 3, max: 8, message: "长度在 3 到 8 个字符", trigger: "blur" },
+        ],
+        userPassword: [
+          { required: true, message: "请输入密码", trigger: "blur" },
+          {
+            min: 5,
+            max: 10,
+            message: "长度在 5 到 10 个字符",
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   methods: {
-    async submitForm() {
-      const res = await login(this.loginForm)
-      let {tokenHead,token} = res.data.data
-      const token1 = tokenHead + ' ' + token
-      window.sessionStorage.setItem('token',token1)
-      this.$router.push("/user");
-    },
+    submitForm: throttle(function() {
+      this.$refs.loginRef.validate(async (valid) => {
+        if (!valid) return;
+        console.log(this.loginForm);
+        const res = await login(this.loginForm);
+        console.log(res);
+        if (res.data.code != 200)
+          return this.$message.error("登录失败 " + res.data.msg);
+        this.$message.success("登录成功");
+        let { tokenHead, token } = res.data.data;
+        const token1 = tokenHead + " " + token;
+        window.sessionStorage.setItem("token", token1);
+        this.$router.push("/user");
+      });
+    },3000), 
     toRegister() {
       this.$router.push("/register");
     },
@@ -59,7 +87,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
 .loginPage {
   // background-color: #000;
   position: relative;
@@ -88,23 +115,23 @@ export default {
       position: relative;
     }
     .btns {
+      position: absolute;
+      bottom: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      .el-button {
         position: absolute;
-        bottom: -80px;
         left: 50%;
         transform: translateX(-50%);
-        .el-button {
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          margin-top: 20px;
-          width: 350px;
-          height: 50px;
-        }
-        .register {
-          margin-top: 100px;
-          margin-left: 0;
-        }
+        margin-top: 20px;
+        width: 350px;
+        height: 50px;
       }
+      .register {
+        margin-top: 100px;
+        margin-left: 0;
+      }
+    }
   }
   .copyright {
     position: absolute;
@@ -113,7 +140,5 @@ export default {
     transform: translateX(-50%);
     font-size: 16px;
   }
-
 }
-
 </style>

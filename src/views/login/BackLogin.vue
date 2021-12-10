@@ -2,11 +2,11 @@
   <div class="loginPage">
     <div class="loginArea">
       <div class="loginTitle">登录</div>
-      <el-form :model="loginForm">
-        <el-form-item label="用户名">
+      <el-form :model="loginForm" :rules="loginRule" ref="loginRef">
+        <el-form-item label="用户名" prop="userName">
           <el-input type="text" v-model="loginForm.userName"></el-input>
         </el-form-item>
-        <el-form-item label="密码">
+        <el-form-item label="密码" prop="userPassword">
           <el-input type="password" v-model="loginForm.userPassword"></el-input>
         </el-form-item>
         <router-link
@@ -36,25 +36,50 @@
 </template>
 
 <script>
-import { login } from 'network/api/questionAPI.js';
+import { login } from "network/api/questionAPI.js";
+import { throttle } from "utils/public";
+
 export default {
   name: "BackLogin",
   data() {
     return {
-       loginForm: {
-          userName: '',
-          userPassword: ''
-       }
+      loginForm: {
+        userName: "",
+        userPassword: "",
+      },
+      loginRule: {
+        userName: [
+          { required: true, message: "请输入用户名", trigger: "blur" },
+          { min: 3, max: 8, message: "长度在 3 到 8 个字符", trigger: "blur" },
+        ],
+        userPassword: [
+          { required: true, message: "请输入密码", trigger: "blur" },
+          {
+            min: 5,
+            max: 10,
+            message: "长度在 5 到 10 个字符",
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   methods: {
-    async submitForm() {
-       const res = await login(this.loginForm)
-      let {tokenHead,token} = res.data.data
-      const token1 = tokenHead + ' ' + token
-      window.sessionStorage.setItem('token',token1)
-      this.$router.push("/home");
-    },
+    submitForm: throttle(function() {
+      this.$refs.loginRef.validate(async (valid) => {
+        if (!valid) return;
+        console.log(this.loginForm);
+        const res = await login(this.loginForm);
+        console.log(res);
+        if (res.data.code != 200)
+          return this.$message.error("登录失败 " + res.data.msg);
+        this.$message.success("登录成功");
+        let { tokenHead, token } = res.data.data;
+        const token1 = tokenHead + " " + token;
+        window.sessionStorage.setItem("token", token1);
+        this.$router.push("/home");
+      });
+    },3000), 
     toRegister() {
       this.$router.push("/register");
     },

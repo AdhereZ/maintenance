@@ -21,6 +21,7 @@ module.exports = {
         "components": '@/components',
         "views": '@/views',
         "network": '@/network',
+        "utils": '@/utils'
       }
     }
   },

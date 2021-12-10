@@ -191,6 +191,7 @@ export default {
       this.activePath = index
     },
     logout() {
+      window.sessionStorage.removeItem('token')
       this.$router.push('/login')
     }
   },

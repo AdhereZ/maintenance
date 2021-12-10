@@ -35,6 +35,7 @@ export default {
   },
   methods: {
     loginout() {
+      window.sessionStorage.removeItem('token')
       this.$router.replace('/');
     }
   }

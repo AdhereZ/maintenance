@@ -173,4 +173,16 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to,from,next) => {
+  if(to.path == '/login' || to.path == '/back-login'  )
+  next()
+  else {
+    let token = window.sessionStorage.getItem('token')
+    if(!token) 
+    next(from.path)
+    else
+    next()
+  }
+})
+
 export default router
